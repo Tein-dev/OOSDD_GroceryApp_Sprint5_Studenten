@@ -11,4 +11,5 @@ public interface IProductCategoryService
     public ProductCategory? Update(ProductCategory category);
     public ProductCategory? Delete(ProductCategory category);
     List<Product> GetProductsForCategory(int categoryId);
+    ProductCategory? GetProductCategory(int productid, int categoryId);
 }

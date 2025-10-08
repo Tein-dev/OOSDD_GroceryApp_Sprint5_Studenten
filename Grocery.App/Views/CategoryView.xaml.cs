@@ -13,7 +13,7 @@ public partial class CategoryView : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if (BindingContext is CategoryView bindingContext)
+        if (BindingContext is CategoryViewModel bindingContext)
         {
             bindingContext.OnAppearing();
         }
@@ -22,7 +22,7 @@ public partial class CategoryView : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        if (BindingContext is CategoryView bindingContext)
+        if (BindingContext is CategoryViewModel bindingContext)
         {
             bindingContext.OnDisappearing();
         }

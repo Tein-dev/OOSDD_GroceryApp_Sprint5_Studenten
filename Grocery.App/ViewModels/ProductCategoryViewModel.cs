@@ -74,6 +74,21 @@ namespace Grocery.App.ViewModels
             ProductsInCategory.Add(product);
             AvailableProducts.Remove(product);
         }
+        
+        [RelayCommand]
+        private void RemoveProductFromCategory(Product product)
+        {
+            if (product == null || Category == null) return;
+
+            var productCategory = _productCategoryService.GetProductCategory(product.Id, Category.Id);
+            if (productCategory != null)
+            {
+                _productCategoryService.Delete(productCategory);
+            }
+
+            ProductsInCategory.Remove(product);
+            AvailableProducts.Add(product);
+        }
 
         [RelayCommand]
         private void PerformSearch(string searchText)

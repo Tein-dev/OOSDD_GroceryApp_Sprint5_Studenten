@@ -2,27 +2,44 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Models;
+using Grocery.App.Views;
 
 namespace Grocery.App.ViewModels;
 
 public partial class CategoryViewModel : BaseViewModel
 {
     private readonly ICategoryService _categoryService;
-    public ObservableCollection<Category> Categories { get; set; }
+    public ObservableCollection<Category> Categories { get; set; } = [];
+
     public CategoryViewModel(ICategoryService categoryService)
     {
         _categoryService = categoryService;
-        Categories = [];
-        foreach (Category c in _categoryService.GetAll()) Categories.Add(c);
     }
-    
+
+    public override void OnAppearing()
+    {
+        base.OnAppearing();
+        LoadCategories();
+    }
+
+    private void LoadCategories()
+    {
+        Categories.Clear();
+        var categories = _categoryService.GetAll();
+        foreach (Category c in categories)
+        {
+            Categories.Add(c);
+        }
+    }
+
     [RelayCommand]
-    private void GoToProductCategory(Category category)
+    private async Task GoToProductCategory(Category category)
     {
         if (category == null) return;
-        Shell.Current.GoToAsync(nameof(Views.ProductCategoryView), new Dictionary<string, object>
+        await Shell.Current.GoToAsync(nameof(ProductCategoryView), new Dictionary<string, object>
         {
-            { nameof(category), category }
+            // The key "Category" must match the QueryProperty in ProductCategoryViewModel
+            { "Category", category }
         });
     }
 }

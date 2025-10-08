@@ -78,4 +78,9 @@ public class ProductCategoryRepository : IProductCategoryRepository
             .Where(p => productIds.Contains(p.Id))
             .ToList();
     }
+
+    public ProductCategory? GetProductCategory(int productId, int categoryId)
+    {
+        return _productCategories.FirstOrDefault(pc => pc.ProductId == productId && pc.CategoryId == categoryId);
+    }
 }

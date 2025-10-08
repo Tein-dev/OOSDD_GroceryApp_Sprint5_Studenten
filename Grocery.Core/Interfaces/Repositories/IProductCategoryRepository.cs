@@ -10,5 +10,6 @@ public interface IProductCategoryRepository
     public ProductCategory Add(ProductCategory category);
     public ProductCategory? Update(ProductCategory category);
     public ProductCategory? Delete(ProductCategory category);
-    List<Product> GetProductsByCategoryId(int categoryId); // Add this line
+    public List<Product> GetProductsByCategoryId(int categoryId);
+    public ProductCategory? GetProductCategory(int productid, int categoryId);
 }

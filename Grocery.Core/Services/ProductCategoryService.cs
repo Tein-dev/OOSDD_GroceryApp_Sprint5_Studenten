@@ -43,4 +43,10 @@ public class ProductCategoryService : IProductCategoryService
     {
         return _productCategoryRepository.GetProductsByCategoryId(categoryId);
     }
+    
+    public ProductCategory? GetProductCategory(int productid, int categoryId)
+    {
+        return _productCategoryRepository.GetProductCategory(productid, categoryId);
+    }
+
 }
