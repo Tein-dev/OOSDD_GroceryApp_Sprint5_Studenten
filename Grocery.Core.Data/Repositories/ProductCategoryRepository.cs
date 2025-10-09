@@ -11,13 +11,6 @@ public class ProductCategoryRepository : IProductCategoryRepository
     public ProductCategoryRepository(IProductRepository productRepository)
     {
         _productRepository = productRepository;
-        _productCategories =
-        [
-            new ProductCategory(1, "Melk in Dairy & Eggs", 1, 2),
-            new ProductCategory(2, "Kaas in Dairy & Eggs", 2, 2),
-            new ProductCategory(3, "Brood in Bakery", 3, 4),
-            new ProductCategory(4, "Cornflakes in Pantry Staples", 4, 5)
-        ];
     }
 
     public List<ProductCategory> GetAll()
