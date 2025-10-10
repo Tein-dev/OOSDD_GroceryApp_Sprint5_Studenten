@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Grocery.App.ViewModels"
+             xmlns:models="clr-namespace:Grocery.Core.Models;assembly=Grocery.Core"
+             x:DataType="viewModels:ProductCategoryViewModel"
+             x:Class="Grocery.App.Views.ProductCategoryView"
+             Title="{Binding Category.Name}">
+    <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Padding="10">
+        <VerticalStackLayout Grid.Column="0">
+            <Label Text="Products in Category" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" />
+            <CollectionView ItemsSource="{Binding ProductsInCategory}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Product">
+                        <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="5">
+                            <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductCategoryViewModel}}, Path=RemoveProductFromCategoryCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <Label Text="{Binding Name}" VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <!-- Column for available products to add -->
+        <VerticalStackLayout Grid.Column="1">
+            <Label Text="Available Products" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" />
+            <SearchBar Placeholder="Search products..."
+                       SearchCommand="{Binding PerformSearchCommand}"
+                       SearchCommandParameter="{Binding Text, Source={RelativeSource Self}}" />
+            <CollectionView ItemsSource="{Binding AvailableProducts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Product">
+                        <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="5">
+                            <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:ProductCategoryViewModel}}, Path=AddProductToCategoryCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <Label Text="{Binding Name}" VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
